@@ -1,10 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Client {
     private String name;
     private int age;
-    private List<Account> accounts = new ArrayList<>();
 
     public Client(String name, int age) {
         this.name = name;
@@ -19,7 +15,21 @@ public class Client {
         return age;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (age != client.age) return false;
+        return name != null ? name.equals(client.name) : client.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + age;
+        return result;
     }
 }

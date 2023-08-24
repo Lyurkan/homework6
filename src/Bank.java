@@ -1,11 +1,19 @@
 import java.util.*;
 
 public class Bank {
-    public static List<Account> getAccounts(Client client) {
-        return client.getAccounts();
+
+    private Map<Client, List<Account>> clientAccounts = new HashMap<>();
+
+    public List<Account> getAccounts(Client client) {
+        return clientAccounts.get(client);
     }
 
-    public static Client findClient(Account account) {
+    public Client findClient(Account account) {
         return account.getOwner();
+    }
+
+    public void putClientAccounts(Client client, Account...accounts) {
+        clientAccounts.putIfAbsent(client, new ArrayList<>());
+        clientAccounts.get(client).addAll(Arrays.asList(accounts));
     }
 }
